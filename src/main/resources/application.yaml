@@ -1,3 +1,9 @@
 spring:
   application:
     name: WebService
+
+  profiles:
+    active: test
+
+  jpa:
+    open-in-view: true
