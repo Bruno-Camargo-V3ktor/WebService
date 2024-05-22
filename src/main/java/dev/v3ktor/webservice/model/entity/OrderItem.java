@@ -1,5 +1,6 @@
 package dev.v3ktor.webservice.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import dev.v3ktor.webservice.model.entity.pk.OrderItemPK;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
@@ -16,7 +17,7 @@ public class OrderItem implements Serializable {
     private Double price;
 
     @EmbeddedId
-    private OrderItemPK id;
+    private OrderItemPK id = new OrderItemPK();
 
     //CONSTRUTORES
     public OrderItem() {}
@@ -34,6 +35,7 @@ public class OrderItem implements Serializable {
     public Double getPrice() { return price; }
     public void setPrice(Double price) { this.price = price; }
 
+    @JsonIgnore
     public Order getOrder() { return id.getOrder(); }
     public void setOrder(Order order) { id.setOrder(order); }
 
