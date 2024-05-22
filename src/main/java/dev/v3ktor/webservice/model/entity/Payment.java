@@ -1,5 +1,6 @@
 package dev.v3ktor.webservice.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
@@ -33,6 +34,7 @@ public class Payment implements Serializable {
     public Instant getMoment() { return moment; }
     public void setMoment(Instant moment) { this.moment = moment; }
 
+    @JsonIgnore
     public Order getOrder() { return order; }
     public void setOrder(Order order) { this.order = order; }
 
