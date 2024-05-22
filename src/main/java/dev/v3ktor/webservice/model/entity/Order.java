@@ -1,5 +1,6 @@
 package dev.v3ktor.webservice.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
@@ -13,6 +14,9 @@ public class Order implements Serializable {
     //ATRIBUTOS
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING,
+            pattern = "yyyy/mm/dd'T'HH:mm:ss'Z'", timezone = "GMT")
     private Instant moment;
 
     //ASSOCIAÇÕES

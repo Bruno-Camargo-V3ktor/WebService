@@ -1,5 +1,6 @@
 package dev.v3ktor.webservice.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
@@ -19,7 +20,7 @@ public class User implements Serializable {
     private String password;
 
     //ASSOCIAÇÕES
-    @OneToMany(mappedBy = "client")
+    @OneToMany(mappedBy = "client") @JsonIgnore
     private List<Order> orders = new ArrayList<>();
 
     //Construtores
