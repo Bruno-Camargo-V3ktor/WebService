@@ -1,8 +1,10 @@
 package dev.v3ktor.webservice.config;
 
+import dev.v3ktor.webservice.model.entity.Category;
 import dev.v3ktor.webservice.model.entity.Order;
 import dev.v3ktor.webservice.model.entity.User;
 import dev.v3ktor.webservice.model.entity.enums.OrderStatus;
+import dev.v3ktor.webservice.model.repository.CategoryRepository;
 import dev.v3ktor.webservice.model.repository.OrderRepository;
 import dev.v3ktor.webservice.model.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +25,9 @@ public class TestConfig implements CommandLineRunner {
     @Autowired
     private OrderRepository orderRepository;
 
+    @Autowired
+    private CategoryRepository categoryRepository;
+
     //MÉTODOS
     @Override
     public void run(String... args) throws Exception
@@ -36,5 +41,13 @@ public class TestConfig implements CommandLineRunner {
 
         userRepository.saveAll( Arrays.asList(u1, u2) );
         orderRepository.saveAll( Arrays.asList(o1, o2, o3) );
+
+        //...
+
+        Category cat1 = new Category(null, "Electronics");
+        Category cat2 = new Category(null, "Books");
+        Category cat3 = new Category(null, "Computers");
+
+        categoryRepository.saveAll( Arrays.asList(cat1, cat2, cat3) );
     }
 }
