@@ -22,4 +22,14 @@ public class ControllerExceptionHandler {
         return ResponseEntity.status(status).body( error );
     }
 
+    @ExceptionHandler(DatabaseException.class)
+    public ResponseEntity<StandardError> databaseExceptionExceptionHandle(DatabaseException ex, HttpServletRequest request)
+    {
+        String errorMsg = "Database Error";
+        HttpStatus status = HttpStatus.BAD_REQUEST;
+
+        StandardError error = new StandardError(Instant.now(), status.value(), errorMsg, ex.getMessage(), request.getRequestURI() );
+        return ResponseEntity.status(status).body( error );
+    }
+
 }

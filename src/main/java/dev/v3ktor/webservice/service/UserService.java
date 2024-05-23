@@ -2,8 +2,10 @@ package dev.v3ktor.webservice.service;
 
 import dev.v3ktor.webservice.model.entity.User;
 import dev.v3ktor.webservice.model.repository.UserRepository;
+import dev.v3ktor.webservice.rest.exception.DatabaseException;
 import dev.v3ktor.webservice.rest.exception.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -34,7 +36,12 @@ public class UserService {
 
     public void deleteById(Long id)
     {
-        userRepository.deleteById(id);
+        User entity = userRepository.findById(id).orElseThrow( () -> new EntityNotFoundException(id) );
+
+        try
+        { userRepository.delete(entity); }
+        catch (DataIntegrityViolationException ex)
+        { throw new DatabaseException( ex.getMessage() ); }
     }
 
     public User updateById(Long id, User obj)
