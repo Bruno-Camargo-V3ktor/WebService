@@ -23,9 +23,7 @@ public class UserService {
 
     public User getById(Long id)
     {
-        User user = userRepository.findById(id)
-                .orElseThrow( EntityNotFoundException::new );
-
+        User user = userRepository.findById(id).orElseThrow( EntityNotFoundException::new );
         return user;
     }
 
@@ -37,6 +35,16 @@ public class UserService {
     public void deleteById(Long id)
     {
         userRepository.deleteById(id);
+    }
+
+    public User updateById(Long id, User obj)
+    {
+        User entity = userRepository.findById(id).orElseThrow( EntityNotFoundException::new );
+        entity.setName( obj.getName() );
+        entity.setEmail( obj.getEmail() );
+        entity.setPhone( obj.getPhone() );
+
+        return userRepository.save( entity );
     }
 
 }

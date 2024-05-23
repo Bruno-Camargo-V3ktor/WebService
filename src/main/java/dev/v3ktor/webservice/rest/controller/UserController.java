@@ -44,4 +44,12 @@ public class UserController {
         service.deleteById(id);
         return ResponseEntity.ok().build();
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<User> updateById( @PathVariable("id") Long id, @RequestBody User obj )
+    {
+        User e = service.updateById(id, obj);
+        return ResponseEntity.ok( e );
+    }
+
 }
