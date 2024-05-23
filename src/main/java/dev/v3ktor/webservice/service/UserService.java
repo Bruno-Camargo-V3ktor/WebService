@@ -2,7 +2,7 @@ package dev.v3ktor.webservice.service;
 
 import dev.v3ktor.webservice.model.entity.User;
 import dev.v3ktor.webservice.model.repository.UserRepository;
-import jakarta.persistence.EntityNotFoundException;
+import dev.v3ktor.webservice.rest.exception.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,7 +23,7 @@ public class UserService {
 
     public User getById(Long id)
     {
-        User user = userRepository.findById(id).orElseThrow( EntityNotFoundException::new );
+        User user = userRepository.findById(id).orElseThrow( () -> new EntityNotFoundException(id) );
         return user;
     }
 
@@ -39,7 +39,7 @@ public class UserService {
 
     public User updateById(Long id, User obj)
     {
-        User entity = userRepository.findById(id).orElseThrow( EntityNotFoundException::new );
+        User entity = userRepository.findById(id).orElseThrow( () -> new EntityNotFoundException(id) );
         entity.setName( obj.getName() );
         entity.setEmail( obj.getEmail() );
         entity.setPhone( obj.getPhone() );
